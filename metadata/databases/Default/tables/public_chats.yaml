@@ -1,0 +1,36 @@
+table:
+  schema: public
+  name: chats
+object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: admin_id
+array_relationships:
+  - name: messages
+    using:
+      foreign_key_constraint_on:
+        column: chat_id
+        table:
+          schema: public
+          name: messages
+  - name: users_chats
+    using:
+      foreign_key_constraint_on:
+        column: chat_id
+        table:
+          schema: public
+          name: users_chats
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - description
+        - title
+        - admin_id
+        - id
+        - created_at
+        - updated_at
+      filter:
+        users_chats:
+          user_id:
+            _eq: X-Hasura-User-Id

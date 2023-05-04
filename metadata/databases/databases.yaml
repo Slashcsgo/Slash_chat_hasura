@@ -1,0 +1,8 @@
+- name: Default
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url: postgresql://postgres@docker.for.mac.localhost:5432/hasura-test
+      isolation_level: read-committed
+  tables: "!include Default/tables/tables.yaml"
